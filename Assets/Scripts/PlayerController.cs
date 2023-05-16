@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject head;
 
     Vector3 dir;
+    Vector2 horizontal;
 
     void Start()
     {
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
 
         dir = Vector3.forward;
+        horizontal = Vector2.zero;
     }
 
     void Update()
@@ -32,17 +34,15 @@ public class PlayerController : MonoBehaviour
         {
             cc.Move(dir.normalized * speed * Time.deltaTime);
 
-            //if (Input.GetTouch(0).phase == TouchPhase.Moved)
-            //{
-                Vector2 horizontal = Input.GetTouch(0).deltaPosition;
-                Debug.Log("asdf");
-                if (horizontal.magnitude > 1)
-                {
-                    horizontal = horizontal.normalized;
-                }
+            horizontal += Input.GetTouch(0).deltaPosition;
+            horizontal.y = 0;
+            Debug.Log("Asdf");
+            if (horizontal.magnitude > 1)
+            {
+                horizontal = horizontal.normalized;
+            }
 
-                dir = (Vector3)horizontal + Vector3.forward;
-            //}
+            dir = (Vector3)horizontal + Vector3.forward;
         }
     }
 }
