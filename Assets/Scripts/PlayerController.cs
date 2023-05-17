@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
         {
             horizontal += Input.GetTouch(0).deltaPosition / 100;
             horizontal.y = 0;
-            Debug.Log(horizontal);
+
             if (horizontal.magnitude > 1)
             {
                 horizontal = horizontal.normalized;
