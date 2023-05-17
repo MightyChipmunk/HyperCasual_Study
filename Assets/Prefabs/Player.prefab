@@ -831,6 +831,7 @@ GameObject:
   - component: {fileID: 5478775892693247138}
   - component: {fileID: 5478775892693247136}
   - component: {fileID: 5478775892693247137}
+  - component: {fileID: 5910177321429690841}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -848,7 +849,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7374780883680783940}
   - {fileID: 2645644662822097675}
@@ -875,7 +876,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 1.5
-  m_Radius: 0.5
+  m_Radius: 0.3
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.0001
@@ -914,11 +915,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce9c09aa9d2039244a4f2be9d18df373, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 6
-  rotSpeed: 3
-  jumpSpeed: 8
-  jumpHeight: 4
-  head: {fileID: 3342238780110983752}
+  head: {fileID: 1658241663451046784}
+--- !u!135 &5910177321429690841
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270993512497276000}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.12
+  m_Center: {x: 0, y: 1.05, z: -0.05}
 --- !u!1 &1324982889719014422
 GameObject:
   m_ObjectHideFlags: 0
@@ -1388,7 +1398,7 @@ Transform:
   m_LocalRotation: {x: -0.052809488, y: 0, z: -0, w: 0.9986046}
   m_LocalPosition: {x: -0, y: 0.1514817, z: -0.01980441}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1658241663451046784}
   m_Father: {fileID: 7858408158124647596}
@@ -2264,7 +2274,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0.049172048, z: 0.0000000017881393}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6041287486294485039}
   - {fileID: 8757568678647049752}

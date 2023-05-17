@@ -45,6 +45,11 @@ public partial class D_Params : BGEntity
 		get => _f_JumpHeight[Index];
 		set => _f_JumpHeight[Index] = value;
 	}
+	public System.Single f_SprintSpeed
+	{
+		get => _f_SprintSpeed[Index];
+		set => _f_SprintSpeed[Index] = value;
+	}
 	private static BansheeGz.BGDatabase.BGFieldEntityName _ufle12jhs77_f_name;
 	public static BansheeGz.BGDatabase.BGFieldEntityName _f_name => _ufle12jhs77_f_name ?? (_ufle12jhs77_f_name = BGCodeGenUtils.GetField<BansheeGz.BGDatabase.BGFieldEntityName>(MetaDefault, new BGId(5695140144746269815UL, 12789073941364641413UL), () => _ufle12jhs77_f_name = null));
 	private static BansheeGz.BGDatabase.BGFieldFloat _ufle12jhs77_f_MoveSpeed;
@@ -55,6 +60,8 @@ public partial class D_Params : BGEntity
 	public static BansheeGz.BGDatabase.BGFieldFloat _f_JumpSpeed => _ufle12jhs77_f_JumpSpeed ?? (_ufle12jhs77_f_JumpSpeed = BGCodeGenUtils.GetField<BansheeGz.BGDatabase.BGFieldFloat>(MetaDefault, new BGId(4938109520886298711UL, 1863127434146386582UL), () => _ufle12jhs77_f_JumpSpeed = null));
 	private static BansheeGz.BGDatabase.BGFieldFloat _ufle12jhs77_f_JumpHeight;
 	public static BansheeGz.BGDatabase.BGFieldFloat _f_JumpHeight => _ufle12jhs77_f_JumpHeight ?? (_ufle12jhs77_f_JumpHeight = BGCodeGenUtils.GetField<BansheeGz.BGDatabase.BGFieldFloat>(MetaDefault, new BGId(5193646682841955997UL, 4261801845108398514UL), () => _ufle12jhs77_f_JumpHeight = null));
+	private static BansheeGz.BGDatabase.BGFieldFloat _ufle12jhs77_f_SprintSpeed;
+	public static BansheeGz.BGDatabase.BGFieldFloat _f_SprintSpeed => _ufle12jhs77_f_SprintSpeed ?? (_ufle12jhs77_f_SprintSpeed = BGCodeGenUtils.GetField<BansheeGz.BGDatabase.BGFieldFloat>(MetaDefault, new BGId(5683244139330671471UL, 1921162200307470994UL), () => _ufle12jhs77_f_SprintSpeed = null));
 	private static readonly D_Params.Factory _factory0_PFS = new D_Params.Factory();
 	private D_Params() : base(MetaDefault)
 	{
