@@ -5,10 +5,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // Player Parameters
-    [SerializeField] float moveSpeed;
-    [SerializeField] float rotSpeed;
-    [SerializeField] float jumpSpeed;
-    [SerializeField] float jumpHeight;
+    float moveSpeed;
+    float rotSpeed;
+    float jumpSpeed;
+    float jumpHeight;
 
     CharacterController cc;
     Animator animator;
@@ -32,6 +32,12 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        var entity = D_Params.GetEntity("PlayerParams");
+        moveSpeed = entity.f_MoveSpeed;
+        rotSpeed = entity.f_RotateSpeed;
+        jumpSpeed = entity.f_JumpSpeed;
+        jumpHeight = entity.f_JumpHeight;
+
         cc = GetComponent<CharacterController>();    
         animator = GetComponent<Animator>();
 
