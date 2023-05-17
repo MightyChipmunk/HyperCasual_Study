@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
 
     CharacterController cc;
     Animator animator;
-    [SerializeField] GameObject head;
 
     // Vector Parameters for Move, Rotate
     Vector3 dir;
