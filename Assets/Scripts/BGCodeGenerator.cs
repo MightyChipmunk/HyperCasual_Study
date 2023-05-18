@@ -63,6 +63,7 @@ public partial class D_Params : BGEntity
 	private static BansheeGz.BGDatabase.BGFieldFloat _ufle12jhs77_f_SprintSpeed;
 	public static BansheeGz.BGDatabase.BGFieldFloat _f_SprintSpeed => _ufle12jhs77_f_SprintSpeed ?? (_ufle12jhs77_f_SprintSpeed = BGCodeGenUtils.GetField<BansheeGz.BGDatabase.BGFieldFloat>(MetaDefault, new BGId(5683244139330671471UL, 1921162200307470994UL), () => _ufle12jhs77_f_SprintSpeed = null));
 	private static readonly D_Params.Factory _factory0_PFS = new D_Params.Factory();
+	private static readonly D_Stage1.Factory _factory1_PFS = new D_Stage1.Factory();
 	private D_Params() : base(MetaDefault)
 	{
 	}
@@ -92,6 +93,66 @@ public partial class D_Params : BGEntity
 	public static D_Params NewEntity(Action<D_Params> callback)
 	{
 		return (D_Params) MetaDefault.NewEntity(new BGMetaEntity.NewEntityContext(entity => callback((D_Params)entity)));
+	}
+}
+
+public partial class D_Stage1 : BGEntity
+{
+
+	public class Factory : BGEntity.EntityFactory
+	{
+		public BGEntity NewEntity(BGMetaEntity meta) => new D_Stage1(meta);
+		public BGEntity NewEntity(BGMetaEntity meta, BGId id) => new D_Stage1(meta, id);
+	}
+	private static BansheeGz.BGDatabase.BGMetaRow _metaDefault;
+	public static BansheeGz.BGDatabase.BGMetaRow MetaDefault => _metaDefault ?? (_metaDefault = BGCodeGenUtils.GetMeta<BansheeGz.BGDatabase.BGMetaRow>(new BGId(4888661519407834424UL,2950509147099595663UL), () => _metaDefault = null));
+	public static BansheeGz.BGDatabase.BGRepoEvents Events => BGRepo.I.Events;
+	public static int CountEntities => MetaDefault.CountEntities;
+	public System.String f_name
+	{
+		get => _f_name[Index];
+		set => _f_name[Index] = value;
+	}
+	public System.String f_Param
+	{
+		get => _f_Param[Index];
+		set => _f_Param[Index] = value;
+	}
+	private static BansheeGz.BGDatabase.BGFieldEntityName _ufle12jhs77_f_name;
+	public static BansheeGz.BGDatabase.BGFieldEntityName _f_name => _ufle12jhs77_f_name ?? (_ufle12jhs77_f_name = BGCodeGenUtils.GetField<BansheeGz.BGDatabase.BGFieldEntityName>(MetaDefault, new BGId(5064064763394968669UL, 11830107086866134960UL), () => _ufle12jhs77_f_name = null));
+	private static BansheeGz.BGDatabase.BGFieldString _ufle12jhs77_f_Param;
+	public static BansheeGz.BGDatabase.BGFieldString _f_Param => _ufle12jhs77_f_Param ?? (_ufle12jhs77_f_Param = BGCodeGenUtils.GetField<BansheeGz.BGDatabase.BGFieldString>(MetaDefault, new BGId(4703523713821580601UL, 9666200303827557032UL), () => _ufle12jhs77_f_Param = null));
+	private static readonly D_Params.Factory _factory0_PFS = new D_Params.Factory();
+	private static readonly D_Stage1.Factory _factory1_PFS = new D_Stage1.Factory();
+	private D_Stage1() : base(MetaDefault)
+	{
+	}
+	private D_Stage1(BGId id) : base(MetaDefault, id)
+	{
+	}
+	private D_Stage1(BGMetaEntity meta) : base(meta)
+	{
+	}
+	private D_Stage1(BGMetaEntity meta, BGId id) : base(meta, id)
+	{
+	}
+	public static D_Stage1 FindEntity(Predicate<D_Stage1> filter)
+	{
+		return (D_Stage1) MetaDefault.FindEntity(entity => filter==null || filter((D_Stage1) entity));
+	}
+	public static List<D_Stage1> FindEntities(Predicate<D_Stage1> filter, List<D_Stage1> result=null, Comparison<D_Stage1> sort=null) => BGCodeGenUtils.FindEntities(MetaDefault, filter, result, sort);
+	public static void ForEachEntity(Action<D_Stage1> action, Predicate<D_Stage1> filter=null, Comparison<D_Stage1> sort=null)
+	{
+		MetaDefault.ForEachEntity(entity => action((D_Stage1) entity), filter == null ? null : (Predicate<BGEntity>) (entity => filter((D_Stage1) entity)), sort==null?(Comparison<BGEntity>) null:(e1,e2) => sort((D_Stage1)e1,(D_Stage1)e2));
+	}
+	public static D_Stage1 GetEntity(BGId entityId) => (D_Stage1) MetaDefault.GetEntity(entityId);
+	public static D_Stage1 GetEntity(int index) => (D_Stage1) MetaDefault[index];
+	public static D_Stage1 GetEntity(string entityName) => (D_Stage1) MetaDefault.GetEntity(entityName);
+	public static D_Stage1 NewEntity() => (D_Stage1) MetaDefault.NewEntity();
+	public static D_Stage1 NewEntity(BGId entityId) => (D_Stage1) MetaDefault.NewEntity(entityId);
+	public static D_Stage1 NewEntity(Action<D_Stage1> callback)
+	{
+		return (D_Stage1) MetaDefault.NewEntity(new BGMetaEntity.NewEntityContext(entity => callback((D_Stage1)entity)));
 	}
 }
 #pragma warning restore 414
