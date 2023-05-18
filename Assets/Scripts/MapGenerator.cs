@@ -41,7 +41,8 @@ public class MapGenerator : MonoBehaviour
                     break;
                 case "jump_pad_end":
                     go = null;
-                    jumpStart.transform.GetChild(0).localPosition += Vector3.forward * (i - startIdx) * 22.5f;
+                    jumpStart.transform.GetChild(0).localPosition += 
+                        Vector3.forward * (i - startIdx) * 5 / jumpStart.transform.localScale.x;
                     break;
             }
 
