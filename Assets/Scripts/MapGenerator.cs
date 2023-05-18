@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
@@ -28,6 +29,7 @@ public class MapGenerator : MonoBehaviour
             {
                 case "flag":
                     go = Instantiate(Flag, gameObject.transform);
+                    go.GetComponentInChildren<TMP_Text>().text = stageObjs[i].f_Param;
                     break;
                 case "obstacle":
                     go = Instantiate(Obstacle, gameObject.transform);
