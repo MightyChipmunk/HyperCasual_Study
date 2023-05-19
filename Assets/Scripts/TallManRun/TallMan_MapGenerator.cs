@@ -19,12 +19,12 @@ public class TallMan_MapGenerator : MonoBehaviour
             stageObjs.Add(D_TallMan_Stage.GetEntity(i));
         }
 
-        GameObject jumpStart = new GameObject();
+        GameObject jumpStart = null;
         int startIdx = 0;
 
         for (int i = 0; i < stageObjs.Count; i++)
         {
-            GameObject go = new GameObject();
+            GameObject go = null;
             switch (stageObjs[i].f_name)
             {
                 case "flag":

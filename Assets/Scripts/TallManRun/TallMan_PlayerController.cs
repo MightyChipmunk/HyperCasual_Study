@@ -185,6 +185,7 @@ public class TallMan_PlayerController : MonoBehaviour
                 HeadSize /= float.Parse(text.Substring(1));
             else if (text.Substring(0, 1) == "X")
                 HeadSize *= float.Parse(text.Substring(1));
+            Destroy(other.gameObject);
         }
         else if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
         {
