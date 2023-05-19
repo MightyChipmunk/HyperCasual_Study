@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class MapGenerator : MonoBehaviour
+public class TallMan_MapGenerator : MonoBehaviour
 {
     [SerializeField] GameObject Flag;
     [SerializeField] GameObject Obstacle;
     [SerializeField] GameObject JumpPad;
 
-    List<D_Stage1> stageObjs = new List<D_Stage1>();
+    List<D_TallMan_Stage> stageObjs = new List<D_TallMan_Stage>();
 
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < D_Stage1.CountEntities; i++)
+        for (int i = 0; i < D_TallMan_Stage.CountEntities; i++)
         {
-            stageObjs.Add(D_Stage1.GetEntity(i));
+            stageObjs.Add(D_TallMan_Stage.GetEntity(i));
         }
 
         GameObject jumpStart = new GameObject();

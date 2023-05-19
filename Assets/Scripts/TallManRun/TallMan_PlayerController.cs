@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class TallMan_PlayerController : MonoBehaviour
 {
     // Player Parameters
     float moveSpeed;
@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        var entity = D_Params.GetEntity("PlayerParams");
+        var entity = D_Params.GetEntity("TallManParams");
         moveSpeed = entity.f_MoveSpeed;
         rotSpeed = entity.f_RotateSpeed;
         jumpSpeed = entity.f_JumpSpeed;

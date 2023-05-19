@@ -63,7 +63,7 @@ public partial class D_Params : BGEntity
 	private static BansheeGz.BGDatabase.BGFieldFloat _ufle12jhs77_f_SprintSpeed;
 	public static BansheeGz.BGDatabase.BGFieldFloat _f_SprintSpeed => _ufle12jhs77_f_SprintSpeed ?? (_ufle12jhs77_f_SprintSpeed = BGCodeGenUtils.GetField<BansheeGz.BGDatabase.BGFieldFloat>(MetaDefault, new BGId(5683244139330671471UL, 1921162200307470994UL), () => _ufle12jhs77_f_SprintSpeed = null));
 	private static readonly D_Params.Factory _factory0_PFS = new D_Params.Factory();
-	private static readonly D_Stage1.Factory _factory1_PFS = new D_Stage1.Factory();
+	private static readonly D_TallMan_Stage.Factory _factory1_PFS = new D_TallMan_Stage.Factory();
 	private D_Params() : base(MetaDefault)
 	{
 	}
@@ -96,13 +96,13 @@ public partial class D_Params : BGEntity
 	}
 }
 
-public partial class D_Stage1 : BGEntity
+public partial class D_TallMan_Stage : BGEntity
 {
 
 	public class Factory : BGEntity.EntityFactory
 	{
-		public BGEntity NewEntity(BGMetaEntity meta) => new D_Stage1(meta);
-		public BGEntity NewEntity(BGMetaEntity meta, BGId id) => new D_Stage1(meta, id);
+		public BGEntity NewEntity(BGMetaEntity meta) => new D_TallMan_Stage(meta);
+		public BGEntity NewEntity(BGMetaEntity meta, BGId id) => new D_TallMan_Stage(meta, id);
 	}
 	private static BansheeGz.BGDatabase.BGMetaRow _metaDefault;
 	public static BansheeGz.BGDatabase.BGMetaRow MetaDefault => _metaDefault ?? (_metaDefault = BGCodeGenUtils.GetMeta<BansheeGz.BGDatabase.BGMetaRow>(new BGId(4888661519407834424UL,2950509147099595663UL), () => _metaDefault = null));
@@ -123,36 +123,36 @@ public partial class D_Stage1 : BGEntity
 	private static BansheeGz.BGDatabase.BGFieldString _ufle12jhs77_f_Param;
 	public static BansheeGz.BGDatabase.BGFieldString _f_Param => _ufle12jhs77_f_Param ?? (_ufle12jhs77_f_Param = BGCodeGenUtils.GetField<BansheeGz.BGDatabase.BGFieldString>(MetaDefault, new BGId(4703523713821580601UL, 9666200303827557032UL), () => _ufle12jhs77_f_Param = null));
 	private static readonly D_Params.Factory _factory0_PFS = new D_Params.Factory();
-	private static readonly D_Stage1.Factory _factory1_PFS = new D_Stage1.Factory();
-	private D_Stage1() : base(MetaDefault)
+	private static readonly D_TallMan_Stage.Factory _factory1_PFS = new D_TallMan_Stage.Factory();
+	private D_TallMan_Stage() : base(MetaDefault)
 	{
 	}
-	private D_Stage1(BGId id) : base(MetaDefault, id)
+	private D_TallMan_Stage(BGId id) : base(MetaDefault, id)
 	{
 	}
-	private D_Stage1(BGMetaEntity meta) : base(meta)
+	private D_TallMan_Stage(BGMetaEntity meta) : base(meta)
 	{
 	}
-	private D_Stage1(BGMetaEntity meta, BGId id) : base(meta, id)
+	private D_TallMan_Stage(BGMetaEntity meta, BGId id) : base(meta, id)
 	{
 	}
-	public static D_Stage1 FindEntity(Predicate<D_Stage1> filter)
+	public static D_TallMan_Stage FindEntity(Predicate<D_TallMan_Stage> filter)
 	{
-		return (D_Stage1) MetaDefault.FindEntity(entity => filter==null || filter((D_Stage1) entity));
+		return (D_TallMan_Stage) MetaDefault.FindEntity(entity => filter==null || filter((D_TallMan_Stage) entity));
 	}
-	public static List<D_Stage1> FindEntities(Predicate<D_Stage1> filter, List<D_Stage1> result=null, Comparison<D_Stage1> sort=null) => BGCodeGenUtils.FindEntities(MetaDefault, filter, result, sort);
-	public static void ForEachEntity(Action<D_Stage1> action, Predicate<D_Stage1> filter=null, Comparison<D_Stage1> sort=null)
+	public static List<D_TallMan_Stage> FindEntities(Predicate<D_TallMan_Stage> filter, List<D_TallMan_Stage> result=null, Comparison<D_TallMan_Stage> sort=null) => BGCodeGenUtils.FindEntities(MetaDefault, filter, result, sort);
+	public static void ForEachEntity(Action<D_TallMan_Stage> action, Predicate<D_TallMan_Stage> filter=null, Comparison<D_TallMan_Stage> sort=null)
 	{
-		MetaDefault.ForEachEntity(entity => action((D_Stage1) entity), filter == null ? null : (Predicate<BGEntity>) (entity => filter((D_Stage1) entity)), sort==null?(Comparison<BGEntity>) null:(e1,e2) => sort((D_Stage1)e1,(D_Stage1)e2));
+		MetaDefault.ForEachEntity(entity => action((D_TallMan_Stage) entity), filter == null ? null : (Predicate<BGEntity>) (entity => filter((D_TallMan_Stage) entity)), sort==null?(Comparison<BGEntity>) null:(e1,e2) => sort((D_TallMan_Stage)e1,(D_TallMan_Stage)e2));
 	}
-	public static D_Stage1 GetEntity(BGId entityId) => (D_Stage1) MetaDefault.GetEntity(entityId);
-	public static D_Stage1 GetEntity(int index) => (D_Stage1) MetaDefault[index];
-	public static D_Stage1 GetEntity(string entityName) => (D_Stage1) MetaDefault.GetEntity(entityName);
-	public static D_Stage1 NewEntity() => (D_Stage1) MetaDefault.NewEntity();
-	public static D_Stage1 NewEntity(BGId entityId) => (D_Stage1) MetaDefault.NewEntity(entityId);
-	public static D_Stage1 NewEntity(Action<D_Stage1> callback)
+	public static D_TallMan_Stage GetEntity(BGId entityId) => (D_TallMan_Stage) MetaDefault.GetEntity(entityId);
+	public static D_TallMan_Stage GetEntity(int index) => (D_TallMan_Stage) MetaDefault[index];
+	public static D_TallMan_Stage GetEntity(string entityName) => (D_TallMan_Stage) MetaDefault.GetEntity(entityName);
+	public static D_TallMan_Stage NewEntity() => (D_TallMan_Stage) MetaDefault.NewEntity();
+	public static D_TallMan_Stage NewEntity(BGId entityId) => (D_TallMan_Stage) MetaDefault.NewEntity(entityId);
+	public static D_TallMan_Stage NewEntity(Action<D_TallMan_Stage> callback)
 	{
-		return (D_Stage1) MetaDefault.NewEntity(new BGMetaEntity.NewEntityContext(entity => callback((D_Stage1)entity)));
+		return (D_TallMan_Stage) MetaDefault.NewEntity(new BGMetaEntity.NewEntityContext(entity => callback((D_TallMan_Stage)entity)));
 	}
 }
 #pragma warning restore 414
