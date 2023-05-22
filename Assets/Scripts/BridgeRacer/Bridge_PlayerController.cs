@@ -81,6 +81,7 @@ public class Bridge_PlayerController : MonoBehaviour
         cc.Move(-transform.up * 9.81f * Time.deltaTime);
     }
 
+    int stairCnt = 0;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Brick") && other.GetComponent<MeshRenderer>().material.color == myColor)
@@ -99,6 +100,7 @@ public class Bridge_PlayerController : MonoBehaviour
             newStair.transform.localEulerAngles = Vector3.zero;
             newStair.transform.localPosition = other.transform.localPosition;
             other.transform.localPosition += new Vector3(0, 0.5f, 0.8f);
+            Bridge_GamaManager.Instance.Score += 100;
         }
     }
 }
