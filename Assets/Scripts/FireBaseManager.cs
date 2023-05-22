@@ -1,22 +1,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Firebase.Firestore;
+using System.Threading.Tasks;
+using System;
 
 public class FireBaseManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    async void Start()
+    public static void GetData(string document, Action<Dictionary<string, object>> callback)
     {
         FirebaseFirestore db = FirebaseFirestore.DefaultInstance;
-        CollectionReference collref = db.Collection("HyperCasual");
-        QuerySnapshot snapshot = await collref.GetSnapshotAsync();
+        Dictionary<string, object> data = new Dictionary<string, object>();
 
-        foreach (DocumentSnapshot document in snapshot.Documents)
+        db.Collection("HyperCasual").Document(document).GetSnapshotAsync().ContinueWith(task =>
         {
-            Dictionary<string, object> documentDictionary = document.ToDictionary();
-            Debug.Log("score:  " + documentDictionary["score"] as string);
-            Debug.Log("time: " + documentDictionary["time"] as string);
-        }
+            if (task.IsCompleted)
+            {
+                DocumentSnapshot snapshot = task.Result;
+                data = snapshot.ToDictionary();
+                Debug.Log("Load Complete");
+
+                callback(data);
+            }
+            else
+                Debug.Log("Load Error");
+        });
     }
 
     public static void SaveData(Dictionary<string, object> data)
@@ -26,9 +33,9 @@ public class FireBaseManager : MonoBehaviour
         db.Collection("HyperCasual").Document("RytjcXeghx0H4WdsLJL9").SetAsync(data).ContinueWith(task =>
         {
             if (task.IsCompleted)
-                Debug.Log("Complete");
+                Debug.Log("Save Complete");
             else
-                Debug.Log("Error");
+                Debug.Log("Save Error");
         });
     }
 }
