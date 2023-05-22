@@ -6,8 +6,9 @@ public class Bridge_GamaManager : MonoBehaviour
 {
     public static Bridge_GamaManager Instance;
 
-    [SerializeField] Transform bridge;
+    [SerializeField] Transform map;
     [SerializeField] GameObject floorFac;
+    [SerializeField] GameObject firstFloor;
 
     int score = 0;
     float time = 0;
@@ -23,8 +24,14 @@ public class Bridge_GamaManager : MonoBehaviour
             if (Score % 1000 == 0)
             {
                 floorCnt++;
-                GameObject newFloor = Instantiate(floorFac, bridge);
+                GameObject newFloor = Instantiate(floorFac, map);
                 newFloor.transform.localPosition = new Vector3(0, 0, 5) + floorPos * floorCnt;
+
+                if (firstFloor)
+                {
+                    firstFloor = newFloor;
+                    firstFloor.transform.Find("Bridge").Find("StairCollider").gameObject.SetActive(false);
+                }
             }
         }
     }
