@@ -278,7 +278,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Time: '
+  m_text: 'Time:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d842c5428094d38488a0a8073d7363a6, type: 2}
   m_sharedMaterial: {fileID: 1012672207835618577, guid: d842c5428094d38488a0a8073d7363a6, type: 2}
@@ -525,7 +525,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Score: '
+  m_text: 'Score:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d842c5428094d38488a0a8073d7363a6, type: 2}
   m_sharedMaterial: {fileID: 1012672207835618577, guid: d842c5428094d38488a0a8073d7363a6, type: 2}
@@ -1176,7 +1176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'HighTime: '
+  m_text: 'HighTime:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d842c5428094d38488a0a8073d7363a6, type: 2}
   m_sharedMaterial: {fileID: 1012672207835618577, guid: d842c5428094d38488a0a8073d7363a6, type: 2}
@@ -1316,7 +1316,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'HighScore: '
+  m_text: 'HighScore:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d842c5428094d38488a0a8073d7363a6, type: 2}
   m_sharedMaterial: {fileID: 1012672207835618577, guid: d842c5428094d38488a0a8073d7363a6, type: 2}
