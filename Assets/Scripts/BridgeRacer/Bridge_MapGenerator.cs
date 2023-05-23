@@ -6,23 +6,23 @@ public class Bridge_MapGenerator : MonoBehaviour
 {
     [SerializeField] GameObject brick;
 
-    float xPos = -4;
-    float zPos = 14;
+    float xPos = -12;
+    float zPos = 12;
 
     // Start is called before the first frame update
     void Start()
     {
-        while (zPos >= 0)
+        while (zPos >= -2)
         {
             int ran = Random.Range(0, 3);
             GameObject go = Instantiate(brick, transform);
             go.transform.localPosition = new Vector3(xPos, 0.1f, zPos);
 
-            if (xPos < 4)
-                xPos += 2;
+            if (xPos < 12)
+                xPos += 1;
             else
             {
-                xPos = -4;
+                xPos = -12;
                 zPos -= 1;
             }
 

@@ -101,6 +101,7 @@ public class Bridge_PlayerController : MonoBehaviour
             newStair.transform.localPosition = other.transform.localPosition;
             other.transform.localPosition += new Vector3(0, 0.5f, 0.8f);
             Bridge_GamaManager.Instance.Score += 100;
+            other.transform.parent.GetComponent<Bridge_Bridge>().Count++;
         }
     }
 }
