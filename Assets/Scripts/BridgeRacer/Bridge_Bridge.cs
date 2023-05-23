@@ -15,7 +15,7 @@ public class Bridge_Bridge : MonoBehaviour
             cnt = value; 
             if (cnt >= openCount)
             {
-                //bridge open
+                transform.Find("StairCollider").gameObject.SetActive(false);    
             }
         }
     }

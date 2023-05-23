@@ -29,15 +29,6 @@ public class Bridge_GamaManager : MonoBehaviour
         { 
             score = value;
             currentScore.text = "Score: " + score.ToString();
-            if (Score % 1000 == 0)
-            {
-                //floorCnt++;
-                //GameObject newFloor = Instantiate(floorFac, map);
-                //newFloor.transform.localPosition = new Vector3(0, 0, 5) + floorPos * floorCnt;
-
-                //currentFloor.transform.Find("Bridge").Find("StairCollider").gameObject.SetActive(false);
-                //currentFloor = newFloor;
-            }
         }
     }
 

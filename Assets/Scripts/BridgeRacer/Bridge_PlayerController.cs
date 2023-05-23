@@ -86,6 +86,8 @@ public class Bridge_PlayerController : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Brick") && other.GetComponent<MeshRenderer>().material.color == myColor)
         {
+            other.transform.parent.GetComponent<Bridge_Brick>().Respawn();
+
             other.transform.parent = brickSlot;
             other.transform.localEulerAngles = Vector3.zero;
             iTween.MoveTo(other.gameObject, iTween.Hash("x", 0, "y", 0.125f * brickSlot.childCount, "z", 0, "islocal", true, "time", 0.2f, "easetype", iTween.EaseType.easeOutQuint));
@@ -99,6 +101,7 @@ public class Bridge_PlayerController : MonoBehaviour
             GameObject newStair = Instantiate(Stair, other.transform.parent);
             newStair.transform.localEulerAngles = Vector3.zero;
             newStair.transform.localPosition = other.transform.localPosition;
+            newStair.GetComponent<MeshRenderer>().material.color = myColor;
             other.transform.localPosition += new Vector3(0, 0.5f, 0.8f);
             Bridge_GamaManager.Instance.Score += 100;
             other.transform.parent.GetComponent<Bridge_Bridge>().Count++;

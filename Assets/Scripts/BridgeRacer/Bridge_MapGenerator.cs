@@ -29,13 +29,13 @@ public class Bridge_MapGenerator : MonoBehaviour
             switch (ran)
             {
                 case 0:
-                    go.GetComponent<MeshRenderer>().material.color = Color.green;
+                    go.GetComponentInChildren<MeshRenderer>().material.color = Color.green;
                     break;
                 case 1:
-                    go.GetComponent<MeshRenderer>().material.color = Color.red;
+                    go.GetComponentInChildren<MeshRenderer>().material.color = Color.red;
                     break;
                 case 2:
-                    go.GetComponent<MeshRenderer>().material.color = Color.blue;
+                    go.GetComponentInChildren<MeshRenderer>().material.color = Color.blue;
                     break;
             }
         }
