@@ -2797,7 +2797,7 @@ CharacterController:
   serializedVersion: 2
   m_Height: 1.6
   m_Radius: 0.3
-  m_SlopeLimit: 45
+  m_SlopeLimit: 90
   m_StepOffset: 0.3
   m_SkinWidth: 0.0001
   m_MinMoveDistance: 0.001
@@ -2815,6 +2815,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myColor: {r: 0, g: 0, b: 1, a: 1}
+  Stair: {fileID: 6736101838105185651, guid: 33dff41c7c265d34b9bda80ad103e0a2, type: 3}
 --- !u!1 &6391281704916997922
 GameObject:
   m_ObjectHideFlags: 0

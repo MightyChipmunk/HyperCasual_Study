@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Bridge_GamaManager : MonoBehaviour
+public class Bridge_GameManager : MonoBehaviour
 {
-    public static Bridge_GamaManager Instance;
+    public static Bridge_GameManager Instance;
 
     [SerializeField] Transform map;
     [SerializeField] GameObject floorFac;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bridge_PlayerController : MonoBehaviour
+public class Bridge_AIController : MonoBehaviour
 {
     // Player Parameters
     float moveSpeed;
@@ -14,6 +14,8 @@ public class Bridge_PlayerController : MonoBehaviour
     [SerializeField] Color myColor;
     [SerializeField] GameObject Stair;
     Stack<GameObject> bricks = new Stack<GameObject>();
+
+    GameObject[] nearBricks;
 
     // Vector Parameters for Move, Rotate
     Vector3 dir;
@@ -36,13 +38,17 @@ public class Bridge_PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         brickSlot = transform.Find("BrickSlot");
 
-        dir = Vector3.forward;
-
+        dir = Vector3.zero;
         state = State.Idle;
     }
 
     void Update()
     {
+        if (nearBricks == null || nearBricks.Length == 0)
+        {
+            nearBricks = GameObject.FindGameObjectsWithTag("Brick");
+        }
+
         Move();
         Rotate();
         switch (state)
@@ -55,27 +61,44 @@ public class Bridge_PlayerController : MonoBehaviour
                 break;
         }
     }
+
+    float dist = 1000;
     void Rotate()
     {
-        if (Input.touchCount > 0)
-            dir = SimpleInput.GetAxis("Horizontal") * Vector3.right + SimpleInput.GetAxis("Vertical") * Vector3.forward;
-        else
-            dir = Vector3.zero;
+        if (nearBricks == null || nearBricks.Length == 0) return;
 
-        if (dir.magnitude > 1)
-            dir.Normalize();
-        else if (dir.magnitude > 0.2f)
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), rotSpeed * 2 * Time.deltaTime);
+        int nearest = 0;
+        for (int i = 0; i < nearBricks.Length; i++)
+        {
+            if (BrickDist(nearBricks[i].transform.position) < dist)
+            {
+                dist = BrickDist(nearBricks[i].transform.position);
+                nearest = i;
+            }
+        }
+
+        Debug.Log(nearest);
+        dir = nearBricks[nearest].transform.position - transform.position;
+        dir.Normalize();
+    }
+
+    float BrickDist(Vector3 brickPos)
+    {
+        float dist = Mathf.Pow(Mathf.Pow(brickPos.x - transform.position.x, 2) 
+            + Mathf.Pow(brickPos.z - transform.position.z, 2)
+            + Mathf.Pow((brickPos.y - transform.position.y) * 10, 2), 1f / 3f);
+        Debug.Log(dist);
+        return dist;
     }
 
     void Move()
     {
-        if (dir.magnitude > 0.2f && Input.touchCount > 0)
+        if (dir.magnitude > 0.2f)
         {
             cc.Move(transform.forward * moveSpeed * Time.deltaTime);
             state = State.Move;
         }
-        else 
+        else
             state = State.Idle;
 
         cc.Move(-transform.up * 9.81f * Time.deltaTime);
@@ -103,7 +126,6 @@ public class Bridge_PlayerController : MonoBehaviour
             newStair.transform.localPosition = other.transform.localPosition;
             newStair.GetComponent<MeshRenderer>().material.color = myColor;
             other.transform.localPosition += new Vector3(0, 0.5f, 0.8f);
-            Bridge_GameManager.Instance.Score += 100;
             other.transform.parent.GetComponent<Bridge_Bridge>().Count++;
         }
     }
