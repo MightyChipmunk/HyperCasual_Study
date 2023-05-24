@@ -5,11 +5,11 @@ using UnityEngine;
 public class Bridge_Brick : MonoBehaviour
 {
     [SerializeField] GameObject brick;
-    Color myColor;
+    public Color myColor;
 
     private void Start()
     {
-        myColor = brick.GetComponent<MeshRenderer>().sharedMaterial.color;
+
     }
 
     public void Respawn()
@@ -27,6 +27,21 @@ public class Bridge_Brick : MonoBehaviour
         newBrick.transform.localScale = Vector3.zero;
         iTween.ScaleTo(newBrick, iTween.Hash("x", brick.transform.localScale.x, "y", brick.transform.localScale.y,
             "z", brick.transform.localScale.z, "time", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
-        newBrick.GetComponent<MeshRenderer>().material.color = myColor;
+
+        int ran = Random.Range(0, 3);
+        switch (ran)
+        {
+            case 0:
+                myColor = Color.green;
+                break;
+            case 1:
+                myColor = Color.red;
+                break;
+            case 2:
+                myColor = Color.blue;
+                break;
+        }
+
+        newBrick.GetComponent<MeshRenderer>().material.color = myColor; 
     }
 }

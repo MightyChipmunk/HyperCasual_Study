@@ -13,6 +13,7 @@ public class Bridge_AIController : MonoBehaviour
     Transform brickSlot;
     [SerializeField] Color myColor;
     [SerializeField] GameObject Stair;
+    [SerializeField] Transform stairCollider;
     Stack<GameObject> bricks = new Stack<GameObject>();
 
     GameObject[] nearBricks;
@@ -25,6 +26,8 @@ public class Bridge_AIController : MonoBehaviour
     {
         Idle,
         Move,
+        GoToBridge,
+        BackToFloor,
     }
     State state;
 
@@ -46,7 +49,7 @@ public class Bridge_AIController : MonoBehaviour
     {
         if (nearBricks == null || nearBricks.Length == 0)
         {
-            nearBricks = GameObject.FindGameObjectsWithTag("Brick");
+            GetNearBricks();
         }
 
         Move();
@@ -54,41 +57,62 @@ public class Bridge_AIController : MonoBehaviour
         switch (state)
         {
             case State.Idle:
+                Move();
+                Rotate();
                 animator.SetInteger("State", 0);
                 break;
             case State.Move:
+                Move();
+                Rotate();
                 animator.SetInteger("State", 1);
+                break;
+            case State.GoToBridge:
+                Move();
+                GoToBridge();
+                break;
+            case State.BackToFloor:
+                Move();
+                BackToFloor();
                 break;
         }
     }
 
-    float dist = 1000;
+    void GetNearBricks()
+    {
+        nearBricks = GameObject.FindGameObjectsWithTag("Brick");
+        for (int i = 0; i < nearBricks.Length; i++)
+        {
+            if (Mathf.Abs(nearBricks[i].transform.position.y - transform.position.y) > 5)
+            {
+                nearBricks[i] = null;
+            }
+        }
+    }
+
+    float dist = 10000;
+    int nearest = 0;
     void Rotate()
     {
         if (nearBricks == null || nearBricks.Length == 0) return;
 
-        int nearest = 0;
-        for (int i = 0; i < nearBricks.Length; i++)
+        if (dist >= 10000 && bricks.Count < 10)
         {
-            if (BrickDist(nearBricks[i].transform.position) < dist)
+            for (int i = 0; i < nearBricks.Length; i++)
             {
-                dist = BrickDist(nearBricks[i].transform.position);
-                nearest = i;
+                if (nearBricks[i] != null 
+                    && nearBricks[i].GetComponent<MeshRenderer>().sharedMaterial.color == myColor
+                    && Vector3.Distance(nearBricks[i].transform.position, transform.position) < dist)
+                {
+                    dist = Vector3.Distance(nearBricks[i].transform.position, transform.position);
+                    nearest = i;
+                }
             }
         }
-
-        Debug.Log(nearest);
+        
         dir = nearBricks[nearest].transform.position - transform.position;
         dir.Normalize();
-    }
 
-    float BrickDist(Vector3 brickPos)
-    {
-        float dist = Mathf.Pow(Mathf.Pow(brickPos.x - transform.position.x, 2) 
-            + Mathf.Pow(brickPos.z - transform.position.z, 2)
-            + Mathf.Pow((brickPos.y - transform.position.y) * 10, 2), 1f / 3f);
-        Debug.Log(dist);
-        return dist;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * rotSpeed);
     }
 
     void Move()
@@ -104,10 +128,23 @@ public class Bridge_AIController : MonoBehaviour
         cc.Move(-transform.up * 9.81f * Time.deltaTime);
     }
 
-    int stairCnt = 0;
+    void GoToBridge()
+    {
+
+        if (bricks.Count <= 0)
+            state = State.BackToFloor;
+    }
+
+    void BackToFloor()
+    {
+        if (/*touch floor*/true)
+            state = State.Move;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Brick") && other.GetComponent<MeshRenderer>().material.color == myColor)
+        if (other.gameObject.layer == LayerMask.NameToLayer("Brick") 
+            && other.transform.parent.GetComponent<Bridge_Brick>().myColor == myColor)
         {
             other.transform.parent.GetComponent<Bridge_Brick>().Respawn();
 
@@ -117,6 +154,18 @@ public class Bridge_AIController : MonoBehaviour
             other.GetComponent<TrailRenderer>().enabled = false;
             other.GetComponent<BoxCollider>().enabled = false;
             bricks.Push(other.gameObject);
+
+            for (int i = 0; i < nearBricks.Length; i++)
+            {
+                if (nearBricks[i] == other.gameObject)
+                {
+                    nearBricks[i] = null;
+                    dist = 10000;
+                }
+            }
+
+            if (bricks.Count >= 10)
+                state = State.GoToBridge;
         }
         else if (other.gameObject.layer == LayerMask.NameToLayer("Bridge") && bricks.Count > 0)
         {

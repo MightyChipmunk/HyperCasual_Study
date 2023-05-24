@@ -10,7 +10,7 @@ public class Bridge_MapGenerator : MonoBehaviour
     float zPos = 12;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         while (zPos >= -2)
         {
@@ -30,12 +30,15 @@ public class Bridge_MapGenerator : MonoBehaviour
             {
                 case 0:
                     go.GetComponentInChildren<MeshRenderer>().material.color = Color.green;
+                    go.GetComponent<Bridge_Brick>().myColor = Color.green;
                     break;
                 case 1:
                     go.GetComponentInChildren<MeshRenderer>().material.color = Color.red;
+                    go.GetComponent<Bridge_Brick>().myColor = Color.red;
                     break;
                 case 2:
                     go.GetComponentInChildren<MeshRenderer>().material.color = Color.blue;
+                    go.GetComponent<Bridge_Brick>().myColor = Color.blue;
                     break;
             }
         }

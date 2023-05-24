@@ -20,8 +20,6 @@ public class Bridge_GameManager : MonoBehaviour
     int score = 0;
     float time = 0;
 
-    int floorCnt = 0;
-    Vector3 floorPos = new Vector3(0.0f, 3.3249998092651369f, 25.32000160217285f);
     public int Score
     {
         get { return score; }

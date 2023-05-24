@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &274985517 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1270869348431717007, guid: 2dafb9f443321744d8e0953782560ed3, type: 3}
+  m_PrefabInstance: {fileID: 7147957059093676287}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &369763278
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,7 +329,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &620578385
 GameObject:
@@ -368,7 +373,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &627977132
 GameObject:
@@ -697,7 +702,7 @@ RectTransform:
   - {fileID: 2006080566}
   - {fileID: 1791741117}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -787,7 +792,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1747915313 stripped
 Transform:
@@ -1180,7 +1185,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1380506570783101476, guid: 138eb0ae620a0104da8080cf99118a67, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1380506570783101476, guid: 138eb0ae620a0104da8080cf99118a67, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1226,6 +1231,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AI
       objectReference: {fileID: 0}
+    - target: {fileID: 6206476620990189344, guid: 138eb0ae620a0104da8080cf99118a67, type: 3}
+      propertyPath: stairCollider
+      value: 
+      objectReference: {fileID: 274985517}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 138eb0ae620a0104da8080cf99118a67, type: 3}
 --- !u!1001 &5614499268438354857

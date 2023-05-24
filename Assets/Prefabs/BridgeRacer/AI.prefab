@@ -1046,7 +1046,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b337ef47e9b1a4b4198cdf0cd6f442f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myColor: {r: 0, g: 1, b: 0, a: 0}
+  myColor: {r: 0, g: 1, b: 0, a: 1}
   Stair: {fileID: 6736101838105185651, guid: 33dff41c7c265d34b9bda80ad103e0a2, type: 3}
 --- !u!1 &1774101225227431268
 GameObject:

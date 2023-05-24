@@ -81,10 +81,10 @@ public class Bridge_PlayerController : MonoBehaviour
         cc.Move(-transform.up * 9.81f * Time.deltaTime);
     }
 
-    int stairCnt = 0;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Brick") && other.GetComponent<MeshRenderer>().material.color == myColor)
+        if (other.gameObject.layer == LayerMask.NameToLayer("Brick") 
+            && other.GetComponentInParent<Bridge_Brick>().myColor == myColor)
         {
             other.transform.parent.GetComponent<Bridge_Brick>().Respawn();
 
