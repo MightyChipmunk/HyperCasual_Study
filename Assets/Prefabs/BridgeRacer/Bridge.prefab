@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8255570780473894434}
   - component: {fileID: 8255570780521605138}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Bridge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 8255570780998050362}
   - component: {fileID: 8255570780998050361}
   - component: {fileID: 8255570780998050360}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 8255570781332036695}
   - component: {fileID: 8255570781332036697}
   - component: {fileID: 8255570781332036696}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Pillars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -315,7 +315,7 @@ GameObject:
   - component: {fileID: 8255570781999701734}
   - component: {fileID: 8255570781999701733}
   - component: {fileID: 8255570781999701732}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

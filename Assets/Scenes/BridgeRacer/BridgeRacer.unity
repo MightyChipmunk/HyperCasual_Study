@@ -1444,10 +1444,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 964643260}
     m_Modifications:
-    - target: {fileID: 561307771, guid: 2dafb9f443321744d8e0953782560ed3, type: 3}
-      propertyPath: brick
-      value: 
-      objectReference: {fileID: 6375184334718643881, guid: f718a5cdbd5ef1148b8924058e68c447, type: 3}
     - target: {fileID: 7475216358934657026, guid: 2dafb9f443321744d8e0953782560ed3, type: 3}
       propertyPath: m_Name
       value: FirstFloor
