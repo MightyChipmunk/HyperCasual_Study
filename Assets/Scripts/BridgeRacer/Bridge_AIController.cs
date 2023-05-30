@@ -59,7 +59,7 @@ public class Bridge_AIController : MonoBehaviour
             case State.Idle:
                 Move();
                 Rotate();
-                animator.SetInteger("State", 0);
+                animator.SetInteger("State", 1);
                 break;
             case State.Move:
                 Move();
@@ -86,6 +86,7 @@ public class Bridge_AIController : MonoBehaviour
 
     void GetNearBricks()
     {
+        nearBricks = null;
         nearBricks = GameObject.FindGameObjectsWithTag("Brick");
         for (int i = 0; i < nearBricks.Length; i++)
         {
@@ -152,10 +153,10 @@ public class Bridge_AIController : MonoBehaviour
 
     void Climb()
     {
-        dir = stairCollider.position - transform.position;
+        dir = Vector3.forward;
         dir.Normalize();
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * rotSpeed);
+        transform.rotation = Quaternion.LookRotation(dir);
         
         if (bricks.Count <= 0)
             state = State.BackToFloor;
@@ -200,11 +201,11 @@ public class Bridge_AIController : MonoBehaviour
 
         if (other.gameObject.layer == LayerMask.NameToLayer("Bridge"))
             state = State.Climb;
-    }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Bridge"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Floor"))
+        {
             state = State.Move;
+            GetNearBricks();
+        }
     }
 }
