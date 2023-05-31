@@ -17,8 +17,7 @@ public class Bridge_AIController : MonoBehaviour
         get { return myColor; }
     }
     [SerializeField] GameObject Stair;
-    [SerializeField] Transform bridge;
-    [SerializeField] Transform stairCollider;
+    Transform bridge;
     Stack<GameObject> bricks = new Stack<GameObject>();
 
     GameObject[] nearBricks;
@@ -117,7 +116,8 @@ public class Bridge_AIController : MonoBehaviour
             }
         }
         
-        dir = nearBricks[nearest].transform.position - transform.position;
+        if (nearBricks[nearest])
+            dir = nearBricks[nearest].transform.position - transform.position;
         dir.y = 0;
         dir.Normalize();
 
@@ -132,11 +132,32 @@ public class Bridge_AIController : MonoBehaviour
 
     void GoToBridge()
     {
-        dir = bridge.position - transform.position;
+        bridge = FindBridge();
+        if (bridge)
+            dir = bridge.position - transform.position;
         dir.y = 0;
         dir.Normalize();
 
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * rotSpeed);
+    }
+
+    Transform FindBridge()
+    {
+        GameObject[] bridges = GameObject.FindGameObjectsWithTag("Bridge");
+        Transform target = null;
+        float dist = 10000;
+
+        for (int i = 0; i < bridges.Length; i++)
+        {
+            if ((transform.position.y - bridges[i].transform.position.y <= 1f) && 
+                Vector3.Distance(transform.position, bridges[i].transform.position) <= dist)
+            {
+                target = bridges[i].transform;
+                dist = Vector3.Distance(transform.position, bridges[i].transform.position);
+            }
+        }
+
+        return target;
     }
 
     void BackToFloor()
