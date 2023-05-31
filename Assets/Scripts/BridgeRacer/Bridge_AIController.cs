@@ -123,9 +123,7 @@ public class Bridge_AIController : MonoBehaviour
 
     void Move()
     {
-        if (dir.magnitude > 0.2f)
-            cc.Move(transform.forward * moveSpeed * Time.deltaTime);
-
+        cc.Move(transform.forward * moveSpeed * Time.deltaTime);
         cc.Move(-transform.up * 9.81f * Time.deltaTime);
     }
 
