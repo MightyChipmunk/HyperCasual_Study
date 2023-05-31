@@ -84,11 +84,13 @@ public class Bridge_AIController : MonoBehaviour
 
     void GetNearBricks()
     {
+        dist = 10000;
         nearBricks = null;
         nearBricks = GameObject.FindGameObjectsWithTag("Brick");
         for (int i = 0; i < nearBricks.Length; i++)
         {
-            if (Mathf.Abs(nearBricks[i].transform.position.y - transform.position.y) > 5)
+            if (Mathf.Abs(nearBricks[i].transform.position.y - transform.position.y) > 5 ||
+                nearBricks[i].transform.parent == brickSlot)
             {
                 nearBricks[i] = null;
             }
@@ -116,6 +118,7 @@ public class Bridge_AIController : MonoBehaviour
         }
         
         dir = nearBricks[nearest].transform.position - transform.position;
+        dir.y = 0;
         dir.Normalize();
 
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * rotSpeed);
@@ -130,6 +133,7 @@ public class Bridge_AIController : MonoBehaviour
     void GoToBridge()
     {
         dir = bridge.position - transform.position;
+        dir.y = 0;
         dir.Normalize();
 
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * rotSpeed);
@@ -140,7 +144,7 @@ public class Bridge_AIController : MonoBehaviour
         dir = -Vector3.forward;
         dir.Normalize();
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * rotSpeed * 10);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * rotSpeed * 4);
     }
 
     void Climb()
@@ -148,7 +152,7 @@ public class Bridge_AIController : MonoBehaviour
         dir = Vector3.forward;
         dir.Normalize();
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * rotSpeed * 10);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * rotSpeed * 4);
 
         if (bricks.Count <= 0)
             state = State.BackToFloor;
@@ -191,23 +195,22 @@ public class Bridge_AIController : MonoBehaviour
             other.transform.parent.GetComponent<Bridge_Bridge>().Count++;
         }
 
-        //if (other.gameObject.layer == LayerMask.NameToLayer("Floor"))
-        //{
-        //    state = State.Move;
-        //    GetNearBricks();
-        //    Debug.Log("FLoor");
-        //}
-    }
-
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        if (hit.gameObject.layer == LayerMask.NameToLayer("Bridge") && bricks.Count > 0)
-            state = State.Climb;
-
-        if (hit.gameObject.layer == LayerMask.NameToLayer("Floor") && bricks.Count <= 0)
+        if (other.gameObject.layer == LayerMask.NameToLayer("Floor"))
         {
             state = State.Move;
             GetNearBricks();
         }
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (state == State.GoToBridge && hit.gameObject.layer == LayerMask.NameToLayer("Bridge") && bricks.Count > 0)
+            state = State.Climb;
+
+        //if (hit.gameObject.layer == LayerMask.NameToLayer("Floor") && bricks.Count <= 0)
+        //{
+        //    state = State.Move;
+        //    GetNearBricks();
+        //}
     }
 }

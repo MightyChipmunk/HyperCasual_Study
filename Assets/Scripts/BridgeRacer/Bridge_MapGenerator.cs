@@ -56,6 +56,7 @@ public class Bridge_MapGenerator : MonoBehaviour
                     break;
             }
             go.GetComponent<Bridge_Brick>().gen = this;
+            go.name = transform.parent.name + "Brick";
             bricks.Add(go);
         }
 
