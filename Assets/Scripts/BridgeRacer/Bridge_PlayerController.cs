@@ -12,6 +12,10 @@ public class Bridge_PlayerController : MonoBehaviour
     Animator animator;
     Transform brickSlot;
     [SerializeField] Color myColor;
+    public Color MyColor
+    {
+        get { return myColor; }
+    }
     [SerializeField] GameObject Stair;
     Stack<GameObject> bricks = new Stack<GameObject>();
 

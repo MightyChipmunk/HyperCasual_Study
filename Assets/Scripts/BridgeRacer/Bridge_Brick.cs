@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bridge_Brick : MonoBehaviour
 {
     [SerializeField] GameObject brick;
+    public Bridge_MapGenerator gen;
     public Color myColor;
 
     private void Start()
@@ -28,14 +29,24 @@ public class Bridge_Brick : MonoBehaviour
         iTween.ScaleTo(newBrick, iTween.Hash("x", brick.transform.localScale.x, "y", brick.transform.localScale.y,
             "z", brick.transform.localScale.z, "time", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
 
-        int ran = Random.Range(0, 3);
+        int ran;
+        while (true)
+        {
+            ran = Random.Range(0, 3);
+
+            if (gen.IsColorExist(ran))
+            {
+                break;
+            }
+        }
+        
         switch (ran)
         {
             case 0:
-                myColor = Color.green;
+                myColor = Color.red;
                 break;
             case 1:
-                myColor = Color.red;
+                myColor = Color.green;
                 break;
             case 2:
                 myColor = Color.blue;

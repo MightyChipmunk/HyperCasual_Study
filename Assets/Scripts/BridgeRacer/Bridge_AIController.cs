@@ -11,7 +11,11 @@ public class Bridge_AIController : MonoBehaviour
     CharacterController cc;
     Animator animator;
     Transform brickSlot;
-    [SerializeField] Color myColor;
+    [SerializeField] Color myColor; 
+    public Color MyColor
+    {
+        get { return myColor; }
+    }
     [SerializeField] GameObject Stair;
     [SerializeField] Transform bridge;
     [SerializeField] Transform stairCollider;
@@ -25,7 +29,6 @@ public class Bridge_AIController : MonoBehaviour
     // State Parameters for Animation
     enum State
     {
-        Idle,
         Move,
         GoToBridge,
         Climb,
@@ -43,8 +46,8 @@ public class Bridge_AIController : MonoBehaviour
         animator = GetComponent<Animator>();
         brickSlot = transform.Find("BrickSlot");
 
-        dir = Vector3.zero;
-        state = State.Idle;
+        dir = Vector3.forward;
+        state = State.Move;
     }
 
     void Update()
@@ -56,11 +59,6 @@ public class Bridge_AIController : MonoBehaviour
 
         switch (state)
         {
-            case State.Idle:
-                Move();
-                Rotate();
-                animator.SetInteger("State", 1);
-                break;
             case State.Move:
                 Move();
                 Rotate();
@@ -126,11 +124,7 @@ public class Bridge_AIController : MonoBehaviour
     void Move()
     {
         if (dir.magnitude > 0.2f)
-        {
             cc.Move(transform.forward * moveSpeed * Time.deltaTime);
-        }
-        else
-            state = State.Idle;
 
         cc.Move(-transform.up * 9.81f * Time.deltaTime);
     }
@@ -148,7 +142,7 @@ public class Bridge_AIController : MonoBehaviour
         dir = -Vector3.forward;
         dir.Normalize();
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * rotSpeed);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * rotSpeed * 10);
     }
 
     void Climb()
@@ -156,8 +150,8 @@ public class Bridge_AIController : MonoBehaviour
         dir = Vector3.forward;
         dir.Normalize();
 
-        transform.rotation = Quaternion.LookRotation(dir);
-        
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * rotSpeed * 10);
+
         if (bricks.Count <= 0)
             state = State.BackToFloor;
     }
@@ -199,10 +193,20 @@ public class Bridge_AIController : MonoBehaviour
             other.transform.parent.GetComponent<Bridge_Bridge>().Count++;
         }
 
-        if (other.gameObject.layer == LayerMask.NameToLayer("Bridge"))
+        //if (other.gameObject.layer == LayerMask.NameToLayer("Floor"))
+        //{
+        //    state = State.Move;
+        //    GetNearBricks();
+        //    Debug.Log("FLoor");
+        //}
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.layer == LayerMask.NameToLayer("Bridge") && bricks.Count > 0)
             state = State.Climb;
 
-        if (other.gameObject.layer == LayerMask.NameToLayer("Floor"))
+        if (hit.gameObject.layer == LayerMask.NameToLayer("Floor") && bricks.Count <= 0)
         {
             state = State.Move;
             GetNearBricks();

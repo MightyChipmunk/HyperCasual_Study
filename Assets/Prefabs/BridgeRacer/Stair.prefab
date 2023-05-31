@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8953164167027981233}
   - component: {fileID: 9169848971838955348}
   - component: {fileID: 3384332776656068134}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Stair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
