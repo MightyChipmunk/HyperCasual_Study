@@ -61,42 +61,54 @@ public class Bridge_PlayerController : MonoBehaviour
     }
     void Rotate()
     {
+        // 터치 입력이 있다면 dir에 값을 대입한다.
         if (Input.touchCount > 0)
             dir = SimpleInput.GetAxis("Horizontal") * Vector3.right + SimpleInput.GetAxis("Vertical") * Vector3.forward;
+        // 터치 입력이 없다면 dir을 0으로 초기화한다.
         else
             dir = Vector3.zero;
 
+        // 만약 dir이 1보다 크다면 dir의 크기를 1로 바꾼다. (dir은 방향만 나타내는 방향벡터기 때문)
         if (dir.magnitude > 1)
             dir.Normalize();
+        // dir의 크기가 0이 아니라면(터치 입력이 있다면) 플레이어를 회전시킨다.
         else if (dir.magnitude > 0.2f)
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), rotSpeed * 2 * Time.deltaTime);
     }
 
     void Move()
     {
+        // 터치 입력이 있다면 State를 Move로 바꾸고 플레이어가 바라보고 있는 방향으로 이동한다.
         if (dir.magnitude > 0.2f && Input.touchCount > 0)
         {
             cc.Move(transform.forward * moveSpeed * Time.deltaTime);
             state = State.Move;
         }
-        else 
+        // 터치 입력이 없다면 State를 Idle로 바꾸고 이동하지 않는다.
+        else
             state = State.Idle;
 
+        // 중력의 영향을 받으며 항상 아래로 이동한다.
         cc.Move(-transform.up * 9.81f * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        // 충돌한 물체가 벽돌이고 자신의 색과 같다면
         if (other.gameObject.layer == LayerMask.NameToLayer("Brick") 
             && other.GetComponentInParent<Bridge_Brick>().myColor == myColor)
         {
             other.transform.parent.GetComponent<Bridge_Brick>().Respawn();
 
+            // 벽돌의 위치를 BrickSlot으로 옮긴다.
             other.transform.parent = brickSlot;
             other.transform.localEulerAngles = Vector3.zero;
+            // BrickSlot의 Brick 개수만큼 y Position을 더한다.
             iTween.MoveTo(other.gameObject, iTween.Hash("x", 0, "y", 0.125f * brickSlot.childCount, "z", 0, "islocal", true, "time", 0.2f, "easetype", iTween.EaseType.easeOutQuint));
+            // 벽돌의 TrailRenderer와 Collider를 끈다.
             other.GetComponent<TrailRenderer>().enabled = false;
             other.GetComponent<BoxCollider>().enabled = false;
+            // 스택에 벽돌을 Push한다.
             bricks.Push(other.gameObject);
         }
         else if (other.gameObject.layer == LayerMask.NameToLayer("Bridge") && bricks.Count > 0)
