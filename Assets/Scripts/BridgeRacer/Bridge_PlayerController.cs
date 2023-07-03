@@ -12,6 +12,7 @@ public class Bridge_PlayerController : MonoBehaviour
     Animator animator;
     Transform brickSlot;
     [SerializeField] Color myColor;
+    // 층에 자신의 색을 알리기 위한 프로퍼티
     public Color MyColor
     {
         get { return myColor; }
@@ -111,15 +112,20 @@ public class Bridge_PlayerController : MonoBehaviour
             // 스택에 벽돌을 Push한다.
             bricks.Push(other.gameObject);
         }
+        // 충돌한 물체가 다리이고 내가 벽돌을 한개 이상 가지고 있다면
         else if (other.gameObject.layer == LayerMask.NameToLayer("Bridge") && bricks.Count > 0)
         {
+            // 벽돌을 하나 꺼낸다.
             Destroy(bricks.Pop());
+            // 꺼낸 벽돌을 계단으로 만들어 다리에 생성한다.
             GameObject newStair = Instantiate(Stair, other.transform.parent);
             newStair.transform.localEulerAngles = Vector3.zero;
             newStair.transform.localPosition = other.transform.localPosition;
             newStair.GetComponent<MeshRenderer>().material.color = myColor;
             other.transform.localPosition += new Vector3(0, 0.5f, 0.8f);
+            // 점수 추가
             Bridge_GameManager.Instance.Score += 100;
+            // 충돌한 Bridge의 벽돌 개수 추가
             other.transform.parent.GetComponent<Bridge_Bridge>().Count++;
         }
     }
