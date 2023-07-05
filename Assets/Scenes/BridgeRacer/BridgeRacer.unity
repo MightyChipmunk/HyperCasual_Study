@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -163,7 +163,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 422, y: -177}
+  m_AnchoredPosition: {x: 422, y: -91.99988}
   m_SizeDelta: {x: 700, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &369763280
@@ -392,7 +392,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &627977133
 RectTransform:
   m_ObjectHideFlags: 0
@@ -816,7 +816,7 @@ GameObject:
   - component: {fileID: 1791741119}
   - component: {fileID: 1791741118}
   m_Layer: 5
-  m_Name: HighTime
+  m_Name: BestTime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -839,7 +839,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 422, y: -365}
+  m_AnchoredPosition: {x: 422, y: -197}
   m_SizeDelta: {x: 700, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1791741118
@@ -862,7 +862,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'HighTime:'
+  m_text: 'BestTime:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d842c5428094d38488a0a8073d7363a6, type: 2}
   m_sharedMaterial: {fileID: 1012672207835618577, guid: d842c5428094d38488a0a8073d7363a6, type: 2}
@@ -961,7 +961,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2006080566
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1279,7 +1279,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1380506570783101476, guid: 138eb0ae620a0104da8080cf99118a67, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.37
+      value: -4.36
       objectReference: {fileID: 0}
     - target: {fileID: 1380506570783101476, guid: 138eb0ae620a0104da8080cf99118a67, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1468,6 +1468,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7139133513965644807, guid: d19ba7879ea77224e8150ed1efa47c4a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7139133513965644807, guid: d19ba7879ea77224e8150ed1efa47c4a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -7.56
+      objectReference: {fileID: 0}
     - target: {fileID: 7139133514237338621, guid: d19ba7879ea77224e8150ed1efa47c4a, type: 3}
       propertyPath: m_RootOrder
       value: 2

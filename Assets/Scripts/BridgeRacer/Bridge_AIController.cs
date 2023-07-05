@@ -10,7 +10,7 @@ public class Bridge_AIController : MonoBehaviour
 
     CharacterController cc;
     Animator animator;
-    Transform brickSlot;
+    Transform brickStack;
     [SerializeField] Color myColor; 
     // 층에 자신의 색을 알리기 위한 프로퍼티
     public Color MyColor
@@ -31,8 +31,10 @@ public class Bridge_AIController : MonoBehaviour
     // State Parameters
     enum State
     {
-        // 벽돌을 찾아다님
         // 시작 상태
+        Idle,
+        // 벽돌을 찾아다님
+        // OnTriggerEnter에서 상태 변환됨
         Move,
         // 다리를 향함
         // OnTriggerEnter에서 상태 변환됨
@@ -51,7 +53,7 @@ public class Bridge_AIController : MonoBehaviour
     // 가장 가까운 벽돌의 인덱스
     int nearest = 0;
 
-    void Start()
+    IEnumerator Start()
     {
         var entity = D_Params.GetEntity("BridgeParams");
         moveSpeed = entity.f_MoveSpeed;
@@ -59,9 +61,13 @@ public class Bridge_AIController : MonoBehaviour
 
         cc = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
-        brickSlot = transform.Find("BrickSlot");
+        brickStack = transform.Find("BrickStack");
 
         dir = Vector3.forward;
+        // 시작 상태 Idle
+        state = State.Idle;
+
+        yield return new WaitForSeconds(3);
         state = State.Move;
     }
 
@@ -75,24 +81,30 @@ public class Bridge_AIController : MonoBehaviour
 
         switch (state)
         {
+            case State.Idle:
+                animator.SetInteger("State", 0);
+                break;
             case State.Move:
                 Rotate();
+                Move();
                 animator.SetInteger("State", 1);
                 break;
             case State.GoToBridge:
                 GoToBridge();
+                Move();
                 animator.SetInteger("State", 1);
                 break;
             case State.Climb:
                 Climb();
+                Move();
                 animator.SetInteger("State", 1);
                 break;
             case State.BackToFloor:
                 BackToFloor();
+                Move();
                 animator.SetInteger("State", 1);
                 break;
         }
-        Move();
     }
 
     // 같은 층의 벽돌들을 가져오는 함수
@@ -107,7 +119,7 @@ public class Bridge_AIController : MonoBehaviour
         for (int i = 0; i < nearBricks.Length; i++)
         {
             if (Mathf.Abs(nearBricks[i].transform.position.y - transform.position.y) > 5 ||
-                nearBricks[i].transform.parent == brickSlot)
+                nearBricks[i].transform.parent == brickStack)
             {
                 nearBricks[i] = null;
             }
@@ -128,10 +140,11 @@ public class Bridge_AIController : MonoBehaviour
             for (int i = 0; i < nearBricks.Length; i++)
             {
                 // nearBricks[i]의 값이 null이 아니고(같은 층이면서 리스폰중이지 않다면)
-                // 색상 또한 자신의 색상과 같으며
+                // 색상 또한 자신의 색상과 같거나 회색이고
                 // 현재 찾은 가장 가까운 벽돌보다 가깝다면
                 if (nearBricks[i] != null 
-                    && nearBricks[i].GetComponent<MeshRenderer>().sharedMaterial.color == myColor
+                    && (nearBricks[i].GetComponent<MeshRenderer>().sharedMaterial.color == myColor
+                    || nearBricks[i].GetComponent<MeshRenderer>().sharedMaterial.color == Color.gray)
                     && Vector3.Distance(nearBricks[i].transform.position, transform.position) < dist)
                 {
                     // 가장 가까운 벽돌과의 거리를 수정하고
@@ -159,6 +172,9 @@ public class Bridge_AIController : MonoBehaviour
     // 모든 State에서 호출된다.
     void Move()
     {
+        // 만약 피격 모션 중이라면 움직이지 못한다.
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("GetHit"))
+            return;
         cc.Move(transform.forward * moveSpeed * Time.deltaTime);
         cc.Move(-transform.up * 9.81f * Time.deltaTime);
     }
@@ -236,16 +252,16 @@ public class Bridge_AIController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // 충돌한 물체가 벽돌이고 자신의 색과 같다면
-        if (other.gameObject.layer == LayerMask.NameToLayer("Brick") 
-            && other.transform.parent.GetComponent<Bridge_Brick>().myColor == myColor)
+        if (other.gameObject.layer == LayerMask.NameToLayer("Brick") &&
+            other.transform.parent.GetComponent<Bridge_Brick>().myColor == myColor)
         {
             other.transform.parent.GetComponent<Bridge_Brick>().Respawn();
 
             // 벽돌의 위치를 BrickSlot으로 옮긴다.
-            other.transform.parent = brickSlot;
+            other.transform.parent = brickStack;
             other.transform.localEulerAngles = Vector3.zero;
             // BrickSlot의 Brick 개수만큼 y Position을 더한다.
-            iTween.MoveTo(other.gameObject, iTween.Hash("x", 0, "y", 0.125f * brickSlot.childCount, "z", 0, "islocal", true, "time", 0.2f, "easetype", iTween.EaseType.easeOutQuint));
+            iTween.MoveTo(other.gameObject, iTween.Hash("x", 0, "y", 0.125f * brickStack.childCount, "z", 0, "islocal", true, "time", 0.2f, "easetype", iTween.EaseType.easeOutQuint));
             // 벽돌의 TrailRenderer와 Collider를 끈다.
             other.GetComponent<TrailRenderer>().enabled = false;
             other.GetComponent<BoxCollider>().enabled = false;
@@ -285,20 +301,93 @@ public class Bridge_AIController : MonoBehaviour
             other.transform.parent.GetComponent<Bridge_Bridge>().Count++;
         }
         
-        // 바닥에 닿았다면 Move로 상태 변환
-        if (other.gameObject.layer == LayerMask.NameToLayer("Floor"))
+        // Idle이 아닐 때 바닥에 닿았다면 Move로 상태 변환
+        if (other.gameObject.layer == LayerMask.NameToLayer("Floor") && state != State.Idle)
         {
             state = State.Move;
             GetNearBricks();
         }
+
+        // 충돌한 물체가 다른 AI 혹은 플레이어의 벽돌 스택이라면
+        if (other.gameObject.layer == LayerMask.NameToLayer("BrickStack") && other.transform.parent != transform)
+        {
+            if (other.transform.parent.gameObject.layer == LayerMask.NameToLayer("AI"))
+                other.GetComponentInParent<Bridge_AIController>().GetHitted();
+            else
+                other.GetComponentInParent<Bridge_PlayerController>().GetHitted();
+        }
     }
 
-    // 다리에 있을 때 Climb로 State 변환
-    // 다리에 들어갈 때 한번 실행되는게 아닌, 다리를 밟고 있을 때 항상 실행되야 한다. (한번만 실행되면 다리를 오르는 중간에 GoToBridge로 상태가 바뀜)
-    // 항상 실행되어야 하기 때문에 Enter 함수 사용 불가, 밟고 있는 계단은 Trigger가 아니기 때문에 OnTriggerStay도 불가
+    
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
+        // 다리에 있을 때 Climb로 State 변환
+        // 다리에 들어갈 때 한번 실행되는게 아닌, 다리를 밟고 있을 때 항상 실행되야 한다. (한번만 실행되면 다리를 오르는 중간에 GoToBridge로 상태가 바뀜)
+        // 항상 실행되어야 하기 때문에 Enter 함수 사용 불가, 밟고 있는 계단은 Trigger가 아니기 때문에 OnTriggerStay도 불가
         if (state == State.GoToBridge && hit.gameObject.layer == LayerMask.NameToLayer("Bridge") && bricks.Count > 0)
             state = State.Climb;
+
+        // 만약 충돌한 물체가 회색 벽돌이라면 (회색 벽돌은 Trigger가 꺼져있다.)
+        if (hit.gameObject.layer == LayerMask.NameToLayer("Brick") && hit.gameObject.GetComponent<MeshRenderer>().sharedMaterial.color == Color.gray)
+        {
+            // 벽돌의 위치를 BrickSlot으로 옮긴다.
+            hit.transform.parent = brickStack;
+            hit.transform.localEulerAngles = Vector3.zero;
+            // 벽돌의 TrailRenderer와 Collider를 끈다.
+            hit.gameObject.GetComponent<TrailRenderer>().enabled = false;
+            hit.gameObject.GetComponent<BoxCollider>().enabled = false;
+            hit.gameObject.GetComponent<Rigidbody>().useGravity = false;
+            hit.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            // BrickSlot의 Brick 개수만큼 y Position을 더한다.
+            iTween.MoveTo(hit.gameObject, iTween.Hash("x", 0, "y", 0.125f * brickStack.childCount, "z", 0, "islocal", true, "time", 0.2f, "easetype", iTween.EaseType.easeOutQuint));
+            // 벽돌의 색을 자신의 색으로 바꾼다.
+            hit.gameObject.GetComponent<MeshRenderer>().material.color = myColor;
+            // 스택에 벽돌을 Push한다.
+            bricks.Push(hit.gameObject);
+
+            // nearBricks를 순회한다.
+            for (int i = 0; i < nearBricks.Length; i++)
+            {
+                // 지금 충돌한 벽돌을 nearBricks에서 찾는다.
+                if (nearBricks[i] == hit.gameObject)
+                {
+                    // 지금 충돌한 벽돌을 nearBricks에서 제거(리스폰 중일테니)
+                    nearBricks[i] = null;
+                    // 다시 가장 가까운 벽돌을 찾기 위해 dist값 초기화
+                    dist = 10000;
+                }
+            }
+
+            // 만약 벽돌을 10개 이상 가졌다면
+            if (bricks.Count >= 10)
+                // GoToBridge로 상태 변환
+                state = State.GoToBridge;
+        }
+    }
+
+    // 다른 플레이어 혹은 AI와 충돌했을 때 호출되는 함수
+    public void GetHitted()
+    {
+        // 피격 애니메이션 재생
+        animator.SetTrigger("Hitted");
+        // 스택에 있는 모든 벽돌을 꺼낸다.
+        while (bricks.Count > 0)
+        {
+            GameObject popedBrick = bricks.Pop();
+            popedBrick.transform.parent = GameObject.Find("Map").transform;
+            // 꺼낸 벽돌의 색을 회색으로 바꾸고, 자연스럽게 떨어지게 하기 위해 중력을 적용시키고 Trigger 설정을 끈다.
+            StartCoroutine(SetBrickColor(popedBrick));
+            popedBrick.GetComponent<BoxCollider>().enabled = true;
+            popedBrick.GetComponent<BoxCollider>().isTrigger = false;
+            popedBrick.GetComponent<Rigidbody>().useGravity = true;
+        }
+    }
+
+    // 충돌 즉시 벽돌이 먹어지는 상황을 막기 위해 0.5초 뒤에 색이 회색으로 되게
+    IEnumerator SetBrickColor(GameObject popedBrick)
+    {
+        popedBrick.GetComponent<MeshRenderer>().material.color = Color.white;
+        yield return new WaitForSeconds(0.5f);
+        popedBrick.GetComponent<MeshRenderer>().material.color = Color.gray;
     }
 }
