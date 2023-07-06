@@ -8,10 +8,6 @@ public class Bridge_GameManager : MonoBehaviour
 {
     public static Bridge_GameManager Instance;
 
-    [SerializeField] Transform map;
-    [SerializeField] GameObject floorFac;
-    [SerializeField] GameObject currentFloor;
-
     [SerializeField] TMP_Text highScore;
     [SerializeField] TMP_Text highTime;
     [SerializeField] TMP_Text currentScore;
@@ -19,6 +15,12 @@ public class Bridge_GameManager : MonoBehaviour
 
     int score = 0;
     float time = 0;
+
+    bool isEnd = false;
+    public bool IsEnd
+    {
+        get { return isEnd; }
+    }
 
     public int Score
     {
@@ -59,20 +61,28 @@ public class Bridge_GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (isEnd) return;
+
         time += Time.deltaTime;
         currentTime.text = time.ToString().Length < 5 ? "Time: " + time.ToString() : "Time: " + time.ToString().Substring(0, 5);
     }
 
-    private void OnApplicationQuit()
+    public void GameEnd(bool playerWin)
     {
-        if (score <= Int32.Parse(data["score"].ToString()))
-            return;
-
-        Dictionary<string, object> newData = new Dictionary<string, object>()
+        if (playerWin)
         {
-            {"score", score },
-            {"time", time }
-        };
-        FireBaseManager.SaveData(newData);
+            if (score <= Int32.Parse(data["score"].ToString()))
+                return;
+
+            Dictionary<string, object> newData = new Dictionary<string, object>()
+            {
+                {"score", score },
+                {"time", time }
+            };
+
+            FireBaseManager.SaveData(newData);
+        }
+
+        isEnd = true;
     }
 }

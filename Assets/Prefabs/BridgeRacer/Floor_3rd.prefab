@@ -1328,7 +1328,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8255570780521605138, guid: e07ae5e3afd44ee44a7858610c60a300, type: 3}
       propertyPath: openCount
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8255570780998050359, guid: e07ae5e3afd44ee44a7858610c60a300, type: 3}
       propertyPath: m_LocalScale.z

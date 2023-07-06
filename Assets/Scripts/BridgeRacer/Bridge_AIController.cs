@@ -73,6 +73,8 @@ public class Bridge_AIController : MonoBehaviour
 
     void Update()
     {
+        if (Bridge_GameManager.Instance.IsEnd) return;
+
         // 만약 nearBricks 배열에 값이 없다면 nearBricks 배열을 초기화한다.
         if (nearBricks == null || nearBricks.Length == 0)
         {
@@ -247,7 +249,16 @@ public class Bridge_AIController : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * rotSpeed * 4);
     }
 
-    
+
+    public void Win(Transform endFloor)
+    {
+        // 애니메이션 재생
+        animator.SetTrigger("End");
+        // 포디엄에 위치하면서
+        transform.position = endFloor.transform.position;
+        // 카메라를 쳐다본다.
+        transform.rotation = Quaternion.LookRotation(-Vector3.forward);
+    }
 
     private void OnTriggerEnter(Collider other)
     {

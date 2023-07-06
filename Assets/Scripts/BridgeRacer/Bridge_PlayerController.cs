@@ -48,6 +48,8 @@ public class Bridge_PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (Bridge_GameManager.Instance.IsEnd) return;
+
         Move();
         Rotate();
         switch (state)
@@ -95,6 +97,16 @@ public class Bridge_PlayerController : MonoBehaviour
 
         // 중력의 영향을 받으며 항상 아래로 이동한다.
         cc.Move(-transform.up * 9.81f * Time.deltaTime);
+    }
+
+    public void Win(Transform endFloor)
+    {
+        // 애니메이션 재생
+        animator.SetTrigger("End");
+        // 포디엄에 위치하면서
+        transform.position = endFloor.transform.position;
+        // 카메라를 쳐다본다.
+        transform.rotation = Quaternion.LookRotation(-Vector3.forward);
     }
 
     private void OnTriggerEnter(Collider other)

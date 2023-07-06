@@ -14,6 +14,11 @@ public class PlayerFollow : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        transform.position = player.transform.position;
+        if (Bridge_GameManager.Instance.IsEnd)
+        {
+            transform.position = new Vector3(0, 19.0599995f, 82.8199997f);
+        }
+        else
+            transform.position = player.transform.position;
     }
 }
