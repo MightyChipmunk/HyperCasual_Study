@@ -18,7 +18,7 @@
 </br>
 
 
-## 3. 핵심 기능 및 상세 역할 :pushpin: [코드 확인](https://github.com/MightyChipmunk/HyperCasual_Study/tree/main/Assets/Scripts)
+## 3. 핵심 기능 및 상세 역할 :pushpin: [코드 확인](https://github.com/MightyChipmunk/HyperCasual_Study/tree/main/Assets/Scripts/BridgeRacer)
 - 모바일 게임인 BridgeRacer를 모작하였습니다.
 
 
